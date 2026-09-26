@@ -95,6 +95,16 @@
 </header>
 
  
+<!-- Search Bar Section -->
+<div style="padding: 12px 15px; background: #111; border-bottom: 1px solid #222;">
+  <input 
+    type="text" 
+    id="searchInput" 
+    onkeyup="searchProducts()" 
+    placeholder="Search for pants, shirts, shoes..." 
+    style="width: 100%; padding: 10px 14px; border-radius: 6px; border: 1px solid #333; background: #1a1a1a; color: #fff; font-size: 14px; outline: none; box-sizing: border-box;"
+  >
+</div>
 
 <section class="hero"><div><div class="eyebrow">MEN'S COLLECTION • 2026</div><h1>WEAR<br>YOUR<br>STYLE.</h1><p>Clean, confident men's fashion from SF FASHION. Cash on Delivery available.</p><a class="btn" href="#shop">SHOP COLLECTION</a></div></section>
 <section class="wrap" id="shop"><div class="head"><h2>Shop</h2><span class="muted">Cash on Delivery</span></div><div class="grid" id="products"></div></section>
@@ -138,6 +148,19 @@
 <script>
   function openNav() { document.getElementById("mySideDrawer").style.width = "100%"; }
 function closeNav() { document.getElementById("mySideDrawer").style.width = "0"; }
+function searchProducts() {
+  let input = document.getElementById('searchInput').value.toLowerCase();
+  let cards = document.querySelectorAll('#shop .card, section#shop > div');
+
+  cards.forEach(card => {
+    let text = card.innerText.toLowerCase();
+    if (text.includes(input)) {
+      card.style.display = "";
+    } else {
+      card.style.display = "none";
+    }
+  });
+}
 
 let products=[],cart=[];
 async function load(){products=await fetch("/api/products").then(r=>r.json());render()}
